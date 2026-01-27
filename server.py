@@ -255,4 +255,12 @@ def get_languages() -> str:
     })
 
 if __name__ == "__main__":
-    mcp.run(transport="streamable-http")
+    # Railway sets PORT environment variable
+    port = int(os.getenv("PORT", 8000))
+    
+    # CRITICAL: Must bind to 0.0.0.0 for Railway, not 127.0.0.1
+    mcp.run(
+        transport="streamable-http",
+        host="0.0.0.0",
+        port=port
+    )
